@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="5064" systemVersion="13F34" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Story" representedClassName="Story" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="cost" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="distance_show" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="facePic" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="follow_num" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="genre_main_show" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="genre_name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="genre_name_show" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="introdution" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="introdution_show" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isFollow" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="pic_show" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="picShowArray" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="position" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="showTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="start_time_show" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="tel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title_vice" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Story" positionX="-63" positionY="-18" width="128" height="375"/>
+    </elements>
+</model>
