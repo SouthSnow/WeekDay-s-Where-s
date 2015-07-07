@@ -138,6 +138,22 @@
     }
     else{
         [imgView setImageWithURL:[NSURL URLWithString:model.face] placeholderImage:nil];
+        
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//            
+//            UIImage *thumbImage;
+//            
+//            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.face]]];
+//            float scale = [UIScreen mainScreen].scale;
+//            UIGraphicsBeginImageContextWithOptions(self.bounds.size, YES, scale);
+//            [image drawInRect:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+//            thumbImage = UIGraphicsGetImageFromCurrentImageContext();
+//            UIGraphicsEndImageContext();
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                self.imageView.image = thumbImage;
+//            });
+//        });
+        
     }
    
     [title setTextColor:[UIColor whiteColor]];

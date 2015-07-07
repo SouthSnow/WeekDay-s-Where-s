@@ -249,7 +249,7 @@
     } completion:^(BOOL finished) {
         l.text = @"下拉刷新";
     }];
-    [self performSelector:@selector(sendRequest:withType:) withObject:laterUtlArray[segment.selectedSegmentIndex] withObject:@"main"];
+    [self sendRequest:laterUtlArray[segment.selectedSegmentIndex] withType:@"main" isRefresh:YES];
     [_act0 stopAnimating];
   
 }
@@ -264,7 +264,7 @@
 {
     [super viewWillAppear:animated];
     
-    [self sendRequest:laterUtlArray[0] withType:@"main"];
+    [self sendRequest:laterUtlArray[0] withType:@"main" isRefresh:NO];
      [self sendWeatherRequest];
     
     dele.customView.hidden = NO;
@@ -274,7 +274,10 @@
         [_tableView reloadData];
     }
 }
-- (void)sendRequest:(NSString*)urlStr withType:(NSString*)type
+
+
+
+- (void)sendRequest:(NSString*)urlStr withType:(NSString*)type isRefresh: (BOOL)isRefresh
 {
     
     
@@ -284,18 +287,20 @@
     [manger GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
     {
         
-        // 停止转动
-        [_act stopAnimating];
         
-        _view.frame = CGRectZero;
-
-        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self resetFrame];
+        });
         if ([type isEqual:@"main"])
         {
 
             requestFinish = YES;
             flag = YES;
-            requestCount++;
+            
+            if (isRefresh) {
+                [_dataArray removeAllObjects];
+                requestCount = 0;
+            }
          
             NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
             for (NSDictionary *dic in dictionary[@"result"][@"list"])
@@ -386,6 +391,7 @@
              dele.error = error;
             [_act stopAnimating];
             [self loadData];
+            
 
     }];
 
@@ -525,7 +531,7 @@
 #pragma mark LeftDelegate
 - (void)ChangeCategory:(NSString *)urlStr
 {
-    [self sendRequest:urlStr withType:@"category"];
+    [self sendRequest:urlStr withType:@"category" isRefresh:YES];
     
 }
 
@@ -592,69 +598,92 @@ int count = 0;
     else
     {
         dele.customView.hidden = NO;
-        [self beginRefresh:scrollView];
         
+        [self beginRefresh:scrollView];
     }
     
     
 }
 
-
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    
+    
+    if (scrollView.contentOffset.y == kContentOffSizeHeight) {
+        
+        [self beginRefresh1:scrollView];
+    }
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     
-    if (scrollView.contentOffset.y > kContentOffSizeHeight) {
-       
-        [self beginRefresh1:scrollView];
-    }
-    
-
 }
+
 
 
 
 - (void)beginRefresh1:(UIScrollView*)scrollView
 {
     _view.frame = (CGRect){0,scrollView.contentSize.height,self.view.frame.size.width,64};
+    _view.hidden = NO;
     [_act startAnimating];
    
     [UIView animateWithDuration:.5 animations:^{
             _tableView.contentInset = UIEdgeInsetsMake(0, 0,64, 0);
     }];
-    [self performSelector:@selector(stopRefresh1) withObject:nil afterDelay:2.0];
-     _loadLabel.text = @"正在加载...";
+    [self performSelector:@selector(stopRefresh1) withObject:nil afterDelay:0.0];
+//     _loadLabel.text = @"正在加载...";
 }
 
 
 
 - (void)stopRefresh1
 {
-    
-    
-    [UIView animateWithDuration:.5 animations:^{
-        [_tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-       
-    } completion:^(BOOL finished) {
-       
-    }];
-    if (requestCount-1 < laterUtlArray.count)
+    if (requestCount < laterUtlArray.count-1)
     {
         if (flag)
         {
-          
-            [self performSelector:@selector(sendRequest:withType:) withObject:laterUtlArray[requestCount] withObject:@"main"];
-            
+            requestCount++;
+            [self sendRequest:laterUtlArray[requestCount] withType:@"main" isRefresh:NO];
             flag = NO;
             
         }
         
     }
-  
-   
-    
-   
+    else
+    {
+        [self resetFrame];
+    }
+
 }
+
+- (void)resetFrame
+{
+    // 停止转动
+    [_act stopAnimating];
+    
+    _loadLabel.text = @"加载完成";
+
+    
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+       
+        [UIView animateWithDuration:1.0 animations:^{
+            [_tableView setContentInset:UIEdgeInsetsZero];
+            
+
+        } completion:^(BOOL finish)
+         {
+             _view.frame = CGRectZero;
+             _view.hidden = YES;
+             _loadLabel.text = @"正在加载...";
+         }];
+        
+    });
+    
+}
+
 
 
 - (void)addSegmentControl
@@ -673,12 +702,12 @@ int count = 0;
 
     if (segment.selectedSegmentIndex == 0)
     {
-           [self sendRequest:laterUtlArray[0] withType:@"main"];
+        [self sendRequest:laterUtlArray[0] withType:@"main" isRefresh:YES];
     }
     else
     {
         segment.selectedSegmentIndex = 1;
-         [self sendRequest:laterUtlArray[1] withType:@"main"];
+        [self sendRequest:laterUtlArray[1] withType:@"main" isRefresh:YES];
     }
     
 }
