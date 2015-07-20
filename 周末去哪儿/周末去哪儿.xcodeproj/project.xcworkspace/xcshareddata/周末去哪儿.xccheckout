@@ -13,7 +13,7 @@
 		<key>815F8B3B2C01362459C54183578D9067C125AACA</key>
 		<string>https://github.com/SouthSnow/WeekDay-s-Where-s.git</string>
 		<key>b3ea32e5-604c-4fca-b5db-6ae888a3e4b3++9256</key>
-		<string>http://yangj.5166.info/1000phone/iOS/trunk/iOS/Network/douban/codes/00-%2525E7%2525BD%252591%2525E7%2525BB%25259C0-JSON%2525E8%2525A7%2525A3%2525E6%25259E%252590/1-DoubanBook/SDWebImage</string>
+		<string>http://yangj.5166.info/1000phone/iOS/trunk/iOS/Network/douban/codes/00-%25E7%25BD%2591%25E7%25BB%259C0-JSON%25E8%25A7%25A3%25E6%259E%2590/1-DoubanBook/SDWebImage</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>周末去哪儿/周末去哪儿.xcodeproj</string>
@@ -22,7 +22,7 @@
 		<key>815F8B3B2C01362459C54183578D9067C125AACA</key>
 		<string>../../..</string>
 		<key>b3ea32e5-604c-4fca-b5db-6ae888a3e4b3++9256</key>
-		<string>../../..%E5%91%A8%E6%9C%AB%E5%8E%BB%E5%93%AA%E5%84%BF/%E5%91%A8%E6%9C%AB%E5%8E%BB%E5%93%AA%E5%84%BF/SDWebImage</string>
+		<string>../../..%E5%91%A8%E6%9C%AB%E5%8E%BB%E5%93%AA%E5%84%BF/%E5%91%A8%E6%9C%AB%E5%8E%BB%E5%93%AA%E5%84%BF/SDWebImage/</string>
 	</dict>
 	<key>IDESourceControlProjectRepositoryRootDictionary</key>
 	<dict>

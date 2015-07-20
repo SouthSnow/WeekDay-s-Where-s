@@ -227,7 +227,7 @@
 
 - (void)addTableView
 {
-    _bodyScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    _bodyScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height)];
     _bodyScrollView.delegate = self;
     _bodyScrollView.contentSize = CGSizeMake(0, _dataArray.count * 150);
     [_bodyScrollView addSubview:[self customHeaderView]];
@@ -243,6 +243,9 @@
     [_tableView registerNib:[UINib nibWithNibName:@"ActCell" bundle:nil] forCellReuseIdentifier:@"cell2"];
     [_tableView registerNib:[UINib nibWithNibName:@"AttentionCell" bundle:nil] forCellReuseIdentifier:@"cell3"];
     [_tableView registerNib:[UINib nibWithNibName:@"SegmentCell" bundle:nil] forCellReuseIdentifier:@"cell4"];
+    
+    
+    
 }
 
 #pragma mark UITableViewDataSource,UITableViewDelegate

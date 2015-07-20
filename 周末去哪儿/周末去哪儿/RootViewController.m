@@ -617,7 +617,8 @@ int count = 0;
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    
+    NSLog(@"offset = %@",NSStringFromCGPoint(scrollView.contentOffset));
+    NSLog(@"inset = %@", NSStringFromUIEdgeInsets(scrollView.contentInset));    
 }
 
 

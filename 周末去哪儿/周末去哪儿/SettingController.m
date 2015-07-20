@@ -42,6 +42,23 @@
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
     [self addTableView];
+    
+    int triangularNumber,n = 0;
+    triangularNumber = 0;
+    NSLog(@"tTABLE OF TRIANGULAR NUMBER");
+    NSLog(@"n sum from 1 to n");
+    NSLog(@"-----  ----------");
+    
+    
+    while (n <= 200) {
+        
+        triangularNumber +=  n;
+        
+        NSLog(@"%3i     %i!",  n    ,triangularNumber);
+        ++n ;
+    }
+
+
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -163,17 +180,35 @@
     
 }
 
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (section == 2) {
+        return 20;
+    }
+    return 10;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (0 == section) {
+        return 30;
+    }
+    return 40;
+}
+
 - (UIView*)customFooterView
 {
     if ([dele.loginStatus isEqualToString:@"success"])
     {
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 88)];
             logout = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 44)];
             [logout setTitle:@"退出" forState:(UIControlStateNormal)];
             [logout setTitleColor:[UIColor whiteColor] forState:(UIControlStateNormal)];
             logout.backgroundColor = [UIColor redColor];
             [logout addTarget:self action:@selector(logOut) forControlEvents:UIControlEventTouchUpInside];
         [view addSubview:logout];
+//        view.backgroundColor = [UIColor greenColor];
             return view;
     }
     return nil;
@@ -203,14 +238,7 @@
     
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    if (section == 2) {
-        return 44;
-    }
-    return 10;
-    
-}
+
 
 - (void)didReceiveMemoryWarning
 {
