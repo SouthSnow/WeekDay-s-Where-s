@@ -27,12 +27,13 @@
     __weak IBOutlet UILabel *pisitionLabel;
     __weak IBOutlet UIImageView *markView;
     __weak IBOutlet UILabel *markLabel;
-    __weak IBOutlet UIImageView *imgView;
+  
    
     __weak IBOutlet UILabel *distanceLabel;
     __weak IBOutlet UILabel *title;
 
     __weak IBOutlet UILabel *subTitle;
+    NSCache *imageCache;
     AppDelegate *dele;
 }
 - (NSString *)timestamp
@@ -134,10 +135,10 @@
     }
     
     if (dele.error) {
-         imgView.image = [UIImage imageWithData:model.facePic];
+         _imgView.image = [UIImage imageWithData:model.facePic];
     }
     else{
-        [imgView setImageWithURL:[NSURL URLWithString:model.face] placeholderImage:nil];
+//        [imgView setImageWithURL:[NSURL URLWithString:model.face] placeholderImage:nil];
         
 //        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 //            
@@ -146,11 +147,11 @@
 //            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.face]]];
 //            float scale = [UIScreen mainScreen].scale;
 //            UIGraphicsBeginImageContextWithOptions(self.bounds.size, YES, scale);
-//            [image drawInRect:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height)];
+//            [image drawInRect:CGRectMake(0, 0, self.bounds.size.width, 230)];
 //            thumbImage = UIGraphicsGetImageFromCurrentImageContext();
 //            UIGraphicsEndImageContext();
 //            dispatch_async(dispatch_get_main_queue(), ^{
-//                self.imageView.image = thumbImage;
+//                _imgView.image = thumbImage;
 //            });
 //        });
         
@@ -205,7 +206,7 @@
         [_favBtn setImage:[UIImage imageNamed:@"like_normal"] forState:UIControlStateNormal];
         
     }
-    [imgView setImageWithURL:[NSURL URLWithString:act.picShowArray[0]] placeholderImage:nil];
+    [_imgView setImageWithURL:[NSURL URLWithString:act.picShowArray[0]] placeholderImage:nil];
     
     [title setTextColor:[UIColor whiteColor]];
     title.font = [UIFont systemFontOfSize:kTextFont];

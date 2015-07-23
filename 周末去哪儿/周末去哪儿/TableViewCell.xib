@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <deployment defaultVersion="1792" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -97,7 +96,7 @@
                 <outlet property="annimationLabel" destination="kgB-tR-BDX" id="s7O-J9-6EQ"/>
                 <outlet property="distanceLabel" destination="zO8-rd-7p9" id="oed-GX-xPP"/>
                 <outlet property="favBtn" destination="xI6-7V-w8N" id="o4P-Wp-Ijq"/>
-                <outlet property="imgView" destination="zML-ZW-USA" id="HIl-kw-2Du"/>
+                <outlet property="imgView" destination="zML-ZW-USA" id="u8A-lz-3xw"/>
                 <outlet property="markLabel" destination="bAz-Cz-WRk" id="oWy-Qe-bjC"/>
                 <outlet property="markView" destination="H1v-f6-rQY" id="82Q-qQ-msF"/>
                 <outlet property="pisitionLabel" destination="Fx0-ok-WUu" id="9Yy-Zi-5ha"/>

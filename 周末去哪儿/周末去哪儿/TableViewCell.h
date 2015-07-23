@@ -15,6 +15,7 @@
 @property (nonatomic, strong) StoryModel *model;
 @property (weak, nonatomic) IBOutlet UIButton *favBtn;
 @property (nonatomic, strong) Activity *act;
+@property (weak, nonatomic) IBOutlet UIImageView *imgView;
 
 
 

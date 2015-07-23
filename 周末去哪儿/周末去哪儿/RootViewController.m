@@ -57,6 +57,8 @@
     UINavigationController *nav2;
     dispatch_queue_t _mainQueue;
     dispatch_queue_t _globalQueue;
+    dispatch_group_t dispatchGroup;
+    NSCache *imageCache;
     
     
 
@@ -115,7 +117,7 @@
        
         _mainQueue = dispatch_get_main_queue();
         _globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
-        
+        dispatchGroup = dispatch_group_create();
         [self initAll];
     }
     return self;
@@ -125,7 +127,10 @@
 {
     [super viewDidLoad];
   
-
+    imageCache = [[NSCache alloc]init];
+    imageCache.countLimit = 30;
+    
+    
 
     [self laterUrl];
     [self addTableView];
@@ -335,10 +340,28 @@
          
             #pragma mark 取回路径
 //                保持数据
-//            if (!_isSaveStatus)
-//            {
-                [self methodOne:_dataArray];
-//            }
+            if (!_isSaveStatus) {
+//                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//                    
+//                    [self saveData:_dataArray];
+//                    _isSaveStatus = YES;
+//                    dispatch_async(dispatch_get_main_queue(), ^{
+//                        _isSaveStatus = NO;
+//                    });
+//                });
+            
+                
+                dispatch_group_async(dispatchGroup, _globalQueue, ^{
+                    [self saveData:_dataArray];
+                    _isSaveStatus = YES;
+                });
+                
+                dispatch_group_notify(dispatchGroup, _mainQueue, ^{
+                    _isSaveStatus = NO;
+                });
+            }
+            
+            
             
           [_tableView reloadData];
         }
@@ -390,9 +413,23 @@
         {
              dele.error = error;
             [_act stopAnimating];
-            [self loadData];
             
-
+            NSManagedObjectContext *context = dele.managedObjectContext;
+            NSEntityDescription *description = [NSEntityDescription entityForName:@"Story" inManagedObjectContext:context];
+            NSFetchRequest *request = [[NSFetchRequest alloc]init];
+            [request setIncludesPropertyValues:NO];
+            [request setEntity:description];
+            
+            NSArray *datas = [context executeFetchRequest:request error:&error];
+            if (datas.count != _dataArray.count) {
+                [self loadData];
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self resetFrame];
+                requestFinish = YES;
+                flag = YES;
+            });
     }];
 
     
@@ -411,12 +448,36 @@
 }
 - (void)saveData:(NSArray*)arr
 {
-    _isSaveStatus = YES;
-    
+
     for (int i = 0; i < arr.count; i++)
     {
+        BOOL hasContain = NO;
         __unused NSError *error = nil;
         __unused  NSManagedObjectContext *context = dele.managedObjectContext;
+      
+        NSEntityDescription *description = [NSEntityDescription entityForName:@"Story" inManagedObjectContext:context];
+        NSFetchRequest *request = [[NSFetchRequest alloc]init];
+        [request setIncludesPropertyValues:NO];
+        [request setEntity:description];
+       
+        NSArray *datas = [context executeFetchRequest:request error:&error];
+        if (!error && datas && [datas count])
+        {
+            for (NSManagedObject *obj in datas)
+            {
+                StoryModel *model =(StoryModel*)obj;
+                if ([model.sID isEqualToString:[(StoryModel*)_dataArray[i] sID]]) {
+                    hasContain = YES;
+                    break;
+                }
+            }
+           
+        }
+        
+        if (hasContain) {
+            continue;
+        }
+        
         StoryModel *model = arr[i];
         NSData *picData = [NSData dataWithContentsOfURL:[NSURL URLWithString:model.face]];
         NSArray *modArr = @[picData,model.title,model.position,model.address, model.cost, model.tel, model.showTime,model.introdution, model.introdution_show ,model.genre_main_show,model.genre_name,model.distance_show ,model.sID,model.latitude ,model.longitude ,model.follow_num , model.title_vice,model.isFollow];
@@ -440,7 +501,6 @@
         }
     }
  
-    _isSaveStatus = NO;
 }
 
 - (void)deleteData
@@ -549,6 +609,30 @@ int count = 0;
     count = (int)indexPath.row;
     [cell.favBtn addTarget:self action:@selector(btnClick:) forControlEvents:(UIControlEventTouchUpInside)];
     cell.model = model;
+    
+    __block UIImage *thumbImage = [imageCache objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+    if (thumbImage) {
+        cell.imgView.image = thumbImage;
+    }
+    
+    if (!thumbImage) {
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            UIImage *image = [UIImage imageWithData:[model isKindOfClass:[StoryModel class]]?[NSData dataWithContentsOfURL:[NSURL URLWithString:model.face]]:model.facePic];
+            float scale = [UIScreen mainScreen].scale;
+            UIGraphicsBeginImageContextWithOptions(CGSizeMake(cell.bounds.size.width, 230), YES, scale);
+            [image drawInRect:CGRectMake(0, 0, self.view.bounds.size.width, 230)];
+            thumbImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            dispatch_async(dispatch_get_main_queue(), ^{
+                cell.imgView.image = thumbImage;
+                [imageCache setObject:thumbImage forKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+            });
+        });
+        
+    }
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
@@ -565,12 +649,12 @@ int count = 0;
    
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-
-    return [self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
-   
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//
+//    return [self tableView:tableView cellForRowAtIndexPath:indexPath].frame.size.height;
+//   
+//}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -741,6 +825,7 @@ int count = 0;
     _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0,30,self.view.frame.size.width,self.view.frame.size.height - 94)];
     [self.view addSubview:_tableView];
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    _tableView.rowHeight = 230;
     _tableView.delegate = self;
     _tableView.dataSource = self;
     [_tableView registerNib:[UINib nibWithNibName:@"TableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
