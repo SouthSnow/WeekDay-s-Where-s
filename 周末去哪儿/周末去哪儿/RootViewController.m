@@ -352,10 +352,12 @@
             
                 
                 dispatch_group_async(dispatchGroup, _globalQueue, ^{
-                    [self saveData:_dataArray];
-                    _isSaveStatus = YES;
+                    @synchronized(self){
+                        _isSaveStatus = YES;
+                        [self saveData:_dataArray];
+                    }
+                    
                 });
-                
                 dispatch_group_notify(dispatchGroup, _mainQueue, ^{
                     _isSaveStatus = NO;
                 });
@@ -422,6 +424,7 @@
             
             NSArray *datas = [context executeFetchRequest:request error:&error];
             if (datas.count != _dataArray.count) {
+                [_dataArray removeAllObjects];
                 [self loadData];
             }
             
@@ -448,12 +451,12 @@
 }
 - (void)saveData:(NSArray*)arr
 {
-
+    __block NSArray *tempArr = _dataArray.copy;
     for (int i = 0; i < arr.count; i++)
     {
         BOOL hasContain = NO;
-        __unused NSError *error = nil;
-        __unused  NSManagedObjectContext *context = dele.managedObjectContext;
+        NSError *error = nil;
+        NSManagedObjectContext *context = dele.managedObjectContext;
       
         NSEntityDescription *description = [NSEntityDescription entityForName:@"Story" inManagedObjectContext:context];
         NSFetchRequest *request = [[NSFetchRequest alloc]init];
@@ -466,7 +469,7 @@
             for (NSManagedObject *obj in datas)
             {
                 StoryModel *model =(StoryModel*)obj;
-                if ([model.sID isEqualToString:[(StoryModel*)_dataArray[i] sID]]) {
+                if ([model.sID isEqualToString:[(StoryModel*)tempArr[i] sID]]) {
                     hasContain = YES;
                     break;
                 }
