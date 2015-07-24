@@ -14,20 +14,19 @@
 
 @implementation ShowImageCell
 {
-    __weak IBOutlet UIImageView *img1;
-    __weak IBOutlet UIImageView *img2;
-    __weak IBOutlet UIImageView *img3;
-    __weak IBOutlet UIImageView *img4;
-    __weak IBOutlet UIImageView *img5;
     
     NSMutableArray *tempArray;
     UIPageControl *pageCtl;
     UIView *_view;
     UIViewController *show;
+    CGRect rect;
+    
 }
 
 - (void)setArray:(NSMutableArray *)array
 {
+    
+    
     tempArray = [NSMutableArray arrayWithArray:array];
     _array = [NSMutableArray arrayWithArray:array];
     int count = (int)_array.count;
@@ -39,15 +38,16 @@
         }
         
     }
-    [img1 setImageWithURL:[NSURL URLWithString:_array[0]] placeholderImage:[UIImage imageNamed:@"pic_default"]];
-    [img2 setImageWithURL:[NSURL URLWithString:_array[1]] placeholderImage:[UIImage imageNamed:@"pic_default"]];
-    [img3 setImageWithURL:[NSURL URLWithString:_array[2]] placeholderImage:[UIImage imageNamed:@"pic_default"]];
-    [img4 setImageWithURL:[NSURL URLWithString:_array[3]] placeholderImage:[UIImage imageNamed:@"pic_default"]];
-    [img5 setImageWithURL:[NSURL URLWithString:_array[4]] placeholderImage:[UIImage imageNamed:@"pic_default"]];
     
-    
+//    [img1 setImageWithURL:[NSURL URLWithString:_array[0]] placeholderImage:[UIImage imageNamed:@"pic_default"]];
+//    [img2 setImageWithURL:[NSURL URLWithString:_array[1]] placeholderImage:[UIImage imageNamed:@"pic_default"]];
+//    [img3 setImageWithURL:[NSURL URLWithString:_array[2]] placeholderImage:[UIImage imageNamed:@"pic_default"]];
+//    [img4 setImageWithURL:[NSURL URLWithString:_array[3]] placeholderImage:[UIImage imageNamed:@"pic_default"]];
+//    [img5 setImageWithURL:[NSURL URLWithString:_array[4]] placeholderImage:[UIImage imageNamed:@"pic_default"]];
+   
+
 }
-    CGRect rect;
+
 - (void)awakeFromNib
 {
    

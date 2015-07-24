@@ -10,4 +10,9 @@
 
 @interface ShowImageCell : UITableViewCell<UIScrollViewDelegate>
 @property (nonatomic, strong) NSMutableArray *array;
+@property (weak, nonatomic) IBOutlet UIImageView *img1;
+@property (weak, nonatomic) IBOutlet UIImageView *img2;
+@property (weak, nonatomic) IBOutlet UIImageView *img3;
+@property (weak, nonatomic) IBOutlet UIImageView *img4;
+@property (weak, nonatomic) IBOutlet UIImageView *img5;
 @end

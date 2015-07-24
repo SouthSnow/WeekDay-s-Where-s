@@ -11,7 +11,7 @@
 
 @implementation TwoCell
 {
-    __weak IBOutlet UIImageView *showView;
+ 
     
     __weak IBOutlet UILabel *titleLabel;
     __weak IBOutlet UILabel *bodyLabel;
@@ -28,7 +28,7 @@
     bodyLabel.numberOfLines = 0;
     bodyLabel.textColor = [UIColor grayColor];
     bodyLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    [showView setImageWithURL:[NSURL URLWithString:_model.picShowArray[0]] placeholderImage:nil];
+//    [self.showImage setImageWithURL:[NSURL URLWithString:_model.picShowArray[0]] placeholderImage:nil];
 }
 
 - (void)setHeight:(NSString *)text
@@ -45,7 +45,7 @@
     {
         height = [text sizeWithAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12]}].height;
     }
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, showView.frame.size.height + titleLabel.frame.size.height + height + 20);
+    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, CGRectGetMaxY(bodyLabel.frame));
 }
 
 - (void)awakeFromNib

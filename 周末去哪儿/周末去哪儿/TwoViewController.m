@@ -32,6 +32,7 @@
     UILabel *label;
     UILabel *label2;
     UIActivityIndicatorView *_act;
+    NSCache *imageCache;
 }
 @end
 
@@ -50,6 +51,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    imageCache = [[NSCache alloc]init];
     self.title = @"发现";
     [self addTableView];
     [self sendRequest];
@@ -150,6 +152,28 @@
 {
     TwoCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.model = _dataArray[indexPath.row];
+    
+    __block UIImage *thumbImage = [imageCache objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+    cell.showImage.image = thumbImage;
+    if (!thumbImage) {
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            UIImage *iamge = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:cell.model.picShowArray[0]]]]?:[UIImage imageNamed:@"picture_default_350"];
+            UIGraphicsBeginImageContextWithOptions(cell.showImage.bounds.size, YES, [UIScreen mainScreen].scale);
+            [iamge drawInRect:cell.showImage.bounds];
+            thumbImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            dispatch_async(dispatch_get_main_queue(), ^{
+                cell.showImage.image = thumbImage;
+                [imageCache setObject:thumbImage forKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+                
+            });
+        });
+        
+    }
+    
+    
     return cell;
 }
 

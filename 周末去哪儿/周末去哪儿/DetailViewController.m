@@ -42,10 +42,11 @@
     UIView *headerView;
     UIView *pageView;
     AppDelegate *dele;
-    UIImageView *imgView;
+    UIImageView *_imgView;
     UIView *contentView;
     UIBarButtonItem *shareBar;
     UIBarButtonItem *favBar;
+    NSCache *imageCache;
 }
 @property (nonatomic, strong) MapViewController *mapController;
 @end
@@ -82,7 +83,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    imageCache = [[NSCache alloc]init];
     dele.customView.hidden = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     [self addTableView];
@@ -474,20 +475,56 @@
     headerView = [[UIView alloc] initWithFrame:CGRectZero];
     
     _scrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0,self.view.frame.size.width, 215)];
-    _scrollView.contentSize = CGSizeMake((_model.picShowArray.count - 1)*_scrollView.frame.size.width, 0);
-    _scrollView.backgroundColor = [UIColor redColor];
+    _scrollView.contentSize = CGSizeMake((_model.picShowArray.count-1)*_scrollView.frame.size.width, 0);
+    _scrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"picture_default_350"]];
     _scrollView.bounces = NO;
     _scrollView.delegate = self;
     _scrollView.pagingEnabled = YES;
    
-    for (int i = 0; i < _model.picShowArray.count - 1; i++)
-    {
-       imgView= [[UIImageView alloc]initWithFrame:CGRectMake(_scrollView.frame.size.width * i, 0, _scrollView.frame.size.width, _scrollView.frame.size.height)];
-        [imgView setImageWithURL:[NSURL URLWithString:_model.picShowArray[i+1]] placeholderImage:[UIImage imageNamed:@"picture_default_350"]];
-       
-        [_scrollView addSubview:imgView];
-    }
-  
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        for (int i = 0; i < _model.picShowArray.count - 1; i++)
+        {
+           UIImageView *imgView = [[UIImageView alloc]initWithFrame:CGRectMake(_scrollView.frame.size.width * i, 0, _scrollView.frame.size.width, _scrollView.frame.size.height)];
+            //        [imgView setImageWithURL:[NSURL URLWithString:_model.picShowArray[i+1]] placeholderImage:[UIImage imageNamed:@"picture_default_350"]];
+             [_scrollView addSubview:imgView];
+            __block UIImage *thumbImage = [imageCache objectForKey:[NSString stringWithFormat:@"%d",i+1]];
+            if (thumbImage) {
+                imgView.image = thumbImage;
+            }
+            
+            if (!thumbImage) {
+
+                UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_model.picShowArray[i+1]]]]?:[UIImage imageNamed:@"picture_default_350"];
+                float scale = [UIScreen mainScreen].scale;
+                UIGraphicsBeginImageContextWithOptions(CGSizeMake(imgView.bounds.size.width, 215), YES, scale);
+                [image drawInRect:CGRectMake(0, 0, self.view.bounds.size.width, 215)];
+                thumbImage = UIGraphicsGetImageFromCurrentImageContext();
+                UIGraphicsEndImageContext();
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    imgView.image = thumbImage;
+                    [imageCache setObject:thumbImage forKey:[NSString stringWithFormat:@"%d",i+1]];
+                });
+
+            }
+            
+           
+        }
+
+        
+//        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_model.picShowArray[i+1]]]]?:[UIImage imageNamed:@"picture_default_350"];
+//        float scale = [UIScreen mainScreen].scale;
+//        UIGraphicsBeginImageContextWithOptions(CGSizeMake(imgView.bounds.size.width, 215), YES, scale);
+//        [image drawInRect:CGRectMake(0, 0, self.view.bounds.size.width, 215)];
+//        thumbImage = UIGraphicsGetImageFromCurrentImageContext();
+//        UIGraphicsEndImageContext();
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            imgView.image = thumbImage;
+//            [imageCache setObject:thumbImage forKey:[NSString stringWithFormat:@"%d",i+1]];
+//        });
+    });
+    
     _timer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(autoShow) userInfo:nil repeats:YES];
     
     pageView = [[UIView alloc]initWithFrame:CGRectMake(0, _scrollView.frame.size.height, self.view.frame.size.width, 44)];

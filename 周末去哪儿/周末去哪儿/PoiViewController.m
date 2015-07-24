@@ -53,6 +53,11 @@
     UIPageControl *pageCtl;
     AppDelegate *dele;
     UIImageView *imgView;
+    NSCache *imageCache;
+    
+    NSCache *imageCache2;
+    
+    
 }
 
 
@@ -94,7 +99,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-   
+    imageCache = [[NSCache alloc]init];
+    imageCache2 = [[NSCache alloc]init];
     dele.customView.hidden = YES;
     self.navigationController.navigationBar.translucent = YES;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"2"] forBarMetrics:(UIBarMetricsDefault)];
@@ -318,8 +324,50 @@
         if (_dataArray.count)
         {
             DetailModel *model = _dataArray[0];
-             cell.array = model.pic_list_thumb;
+//             cell.array = model.pic_list_thumb;
+            NSMutableArray *array = [model.pic_list_thumb mutableCopy];
             tempArray = model.pic_details_show;
+          
+            int count = (int)array.count;
+            if ( count < 5)
+            {
+                for (int i = 0; i < 5 - count; i++)
+                {
+                    [array addObject:@"pic_default"];
+                }
+                
+            }
+            
+            NSArray *imageArr = @[cell.img1,cell.img2,cell.img3,cell.img4,cell.img5];
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                for (int i = 0; i < imageArr.count; i++) {
+                    
+                    __block UIImage *thumbImage = [imageCache2 objectForKey:[NSString stringWithFormat:@"%d",i]];
+                    if (thumbImage) {
+                        ((UIImageView *)imageArr[i]).image = thumbImage;
+                    }
+                    
+                    if (!thumbImage) {
+                        
+                        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:array[i]]]]?:[UIImage imageNamed:@"pic_default"];
+                        float scale = [UIScreen mainScreen].scale;
+                        UIGraphicsBeginImageContextWithOptions(((UIImageView *)imageArr[i]).bounds.size, YES, scale);
+                        [image drawInRect:CGRectMake(0, 0, ((UIImageView *)imageArr[i]).bounds.size.width, ((UIImageView *)imageArr[i]).bounds.size.height)];
+                        thumbImage = UIGraphicsGetImageFromCurrentImageContext();
+                        UIGraphicsEndImageContext();
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            ((UIImageView *)imageArr[i]).image = thumbImage;
+                            [imageCache2 setObject:thumbImage forKey:[NSString stringWithFormat:@"%d",i]];
+                        });
+                        
+                    }
+                    
+                }
+                
+            });
+            
+            
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(myTap:)];
             cell.userInteractionEnabled = YES;
             [cell addGestureRecognizer:tap];
@@ -533,6 +581,26 @@
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 175 + 40)];
     imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, view.frame.origin.y, view.frame.size.width, 175)];
     [imgView setImageWithURL:[NSURL URLWithString:_model.picShowArray[0]] placeholderImage:nil];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        __block UIImage *thumbIamge = [imageCache objectForKey:@"iamge"];
+        imgView.image = thumbIamge;
+        if (!thumbIamge) {
+            UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_model.picShowArray[0]]]];
+            float scale = [UIScreen mainScreen].scale;
+            UIGraphicsBeginImageContextWithOptions(CGSizeMake(self.view.bounds.size.width, 175), YES, scale);
+            [image drawInRect:CGRectMake(0, 0, self.view.bounds.size.width,175)];
+            thumbIamge = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                imgView.image = thumbIamge;
+                [imageCache setObject:thumbIamge forKey:@"image"];
+            });
+            
+        }
+        
+    });
+    
     
     UIImageView *icon = [[UIImageView alloc]initWithFrame:CGRectMake(20,135, 60, 60)];
     icon.image = [UIImage imageNamed:@"avatardefault_place"];

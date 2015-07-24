@@ -11,5 +11,6 @@
 
 @interface TwoCell : UITableViewCell
 @property (nonatomic, strong) StoryModel *model;
+@property (weak, nonatomic) IBOutlet UIImageView *showImage;
 
 @end
