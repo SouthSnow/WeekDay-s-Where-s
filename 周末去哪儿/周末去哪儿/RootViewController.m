@@ -349,23 +349,9 @@
 //                        _isSaveStatus = NO;
 //                    });
 //                });
-            
-                
-                dispatch_group_async(dispatchGroup, _globalQueue, ^{
-                    @synchronized(self){
-                        _isSaveStatus = YES;
-                        [self saveData:_dataArray];
-                    }
-                    
-                });
-                dispatch_group_notify(dispatchGroup, _mainQueue, ^{
-                    _isSaveStatus = NO;
-                });
+                [self saveData];
             }
-            
-            
-            
-          [_tableView reloadData];
+            [_tableView reloadData];
         }
         else
         {
@@ -400,10 +386,6 @@
                   
                   [_dataArray addObject:model];
                   [activity.artArray addObject:model];
-                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                    // [self deleteData];
-                     [self saveData:_dataArray];
-                 });
                  
               }
             
@@ -437,18 +419,21 @@
 
     
 }
-- (void)methodOne:(NSArray*)arr
+
+- (void)saveData
 {
-//    dispatch_async(_globalQueue, ^{
-//        [self saveData:arr];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-    if (self.saveCount == 30) {
-//        [self loadData];
-    }
-    
-//        });
-//    });
+    dispatch_group_async(dispatchGroup, _globalQueue, ^{
+        @synchronized(self){
+            _isSaveStatus = YES;
+            [self saveData:_dataArray];
+        }
+        
+    });
+    dispatch_group_notify(dispatchGroup, _mainQueue, ^{
+        _isSaveStatus = NO;
+    });
 }
+
 - (void)saveData:(NSArray*)arr
 {
     __block NSArray *tempArr = _dataArray.copy;
