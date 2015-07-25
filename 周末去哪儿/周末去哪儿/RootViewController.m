@@ -5,8 +5,6 @@
 //  Created by pangfuli on 14/9/2.
 //  Copyright (c) 2014年 pfl. All rights reserved.
 //
-
-
 #import "RootViewController.h"
 #import "LeftViewController.h"
 #import "PPRevealSideViewController.h"
@@ -141,11 +139,6 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     
    
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    
 }
 
 - (void)sendWeatherRequest
@@ -291,8 +284,6 @@
     
     [manger GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
     {
-        
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self resetFrame];
         });
@@ -479,9 +470,7 @@
         if ([context save:&error])
         {
             NSLog(@"添加成功");
-            
-            self.saveCount++;
-            
+            NSLog(@"savecount = %d",self.saveCount++);
         }
         else
         {
