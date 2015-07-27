@@ -315,7 +315,7 @@
     {
         DetailCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"cell2"];
         NSString *string = [NSString stringWithFormat:@"%@",_model.introdution];//,_model.information_show
-        string = [string stringByReplacingOccurrencesOfString:@"<br/><\br>" withString:@""];
+//        string = [string stringByReplacingOccurrencesOfString:@"<br/><\br>" withString:@""];
 //        [cell setHeight:string];
         cell.detailString = string;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -512,17 +512,6 @@
            
         }
 
-        
-//        UIImage *image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:_model.picShowArray[i+1]]]]?:[UIImage imageNamed:@"picture_default_350"];
-//        float scale = [UIScreen mainScreen].scale;
-//        UIGraphicsBeginImageContextWithOptions(CGSizeMake(imgView.bounds.size.width, 215), YES, scale);
-//        [image drawInRect:CGRectMake(0, 0, self.view.bounds.size.width, 215)];
-//        thumbImage = UIGraphicsGetImageFromCurrentImageContext();
-//        UIGraphicsEndImageContext();
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//            imgView.image = thumbImage;
-//            [imageCache setObject:thumbImage forKey:[NSString stringWithFormat:@"%d",i+1]];
-//        });
     });
     
     _timer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(autoShow) userInfo:nil repeats:YES];
