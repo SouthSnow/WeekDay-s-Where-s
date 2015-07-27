@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x5468;&#x672b;&#x53bb;&#x54ea;&#x513f;/RootViewController.m"
-            timestampString = "459357654.524313"
+            timestampString = "459527131.663436"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "611"
-            endingLineNumber = "611"
+            startingLineNumber = "575"
+            endingLineNumber = "575"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,59 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "&#x5468;&#x672b;&#x53bb;&#x54ea;&#x513f;/RootViewController.m"
-            timestampString = "459359212.649392"
+            timestampString = "459527131.663436"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "353"
-            endingLineNumber = "353"
-            landmarkName = "-sendRequest:withType:isRefresh:"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__53-[RootViewController sendRequest:withType:isRefresh:]_block_invoke"
-                  moduleName = "&#x5468;&#x672b;&#x53bb;&#x54ea;&#x513f;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/pangfuli/Documents/GitDocument/WeekDay-s-Where-s/%E5%91%A8%E6%9C%AB%E5%8E%BB%E5%93%AA%E5%84%BF/%E5%91%A8%E6%9C%AB%E5%8E%BB%E5%93%AA%E5%84%BF/RootViewController.m"
-                  timestampString = "459359546.156657"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "354"
-                  endingLineNumber = "354"
-                  offsetFromSymbolStart = "3776">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__53-[RootViewController sendRequest:withType:isRefresh:]_block_invoke335"
-                  moduleName = "&#x5468;&#x672b;&#x53bb;&#x54ea;&#x513f;"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/pangfuli/Documents/GitDocument/WeekDay-s-Where-s/%E5%91%A8%E6%9C%AB%E5%8E%BB%E5%93%AA%E5%84%BF/%E5%91%A8%E6%9C%AB%E5%8E%BB%E5%93%AA%E5%84%BF/RootViewController.m"
-                  timestampString = "459359546.156861"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "355"
-                  endingLineNumber = "355"
-                  offsetFromSymbolStart = "32">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "&#x5468;&#x672b;&#x53bb;&#x54ea;&#x513f;/RootViewController.m"
-            timestampString = "459359546.012741"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "426"
-            endingLineNumber = "426"
+            startingLineNumber = "389"
+            endingLineNumber = "389"
             landmarkName = "-sendRequest:withType:isRefresh:"
             landmarkType = "5">
          </BreakpointContent>

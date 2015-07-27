@@ -21,6 +21,7 @@
 #import "AFNetworking.h"
 #import "Story.h"
 #import "SegmentViewController.h"
+#import "StaticLibraryDemo.h"
 
 #define kContentOffSizeHeight scrollView.contentSize.height - 474
 
@@ -128,7 +129,7 @@
     imageCache = [[NSCache alloc]init];
     imageCache.countLimit = 30;
     
-    
+    [StaticLibraryDemo testPrint];
 
     [self laterUrl];
     [self addTableView];
@@ -330,18 +331,7 @@
             }
          
             #pragma mark 取回路径
-//                保持数据
-            if (!_isSaveStatus) {
-//                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-//                    
-//                    [self saveData:_dataArray];
-//                    _isSaveStatus = YES;
-//                    dispatch_async(dispatch_get_main_queue(), ^{
-//                        _isSaveStatus = NO;
-//                    });
-//                });
-                [self saveData];
-            }
+
             [_tableView reloadData];
         }
         else
@@ -427,7 +417,6 @@
 
 - (void)saveData:(NSArray*)arr
 {
-    __block NSArray *tempArr = _dataArray.copy;
     for (int i = 0; i < arr.count; i++)
     {
         BOOL hasContain = NO;
@@ -440,12 +429,13 @@
         [request setEntity:description];
        
         NSArray *datas = [context executeFetchRequest:request error:&error];
+        self.saveCount = datas.count;
         if (!error && datas && [datas count])
         {
             for (NSManagedObject *obj in datas)
             {
                 StoryModel *model =(StoryModel*)obj;
-                if ([model.sID isEqualToString:[(StoryModel*)tempArr[i] sID]]) {
+                if ([model.sID isEqualToString:[(StoryModel*)arr[i] sID]]) {
                     hasContain = YES;
                     break;
                 }
@@ -668,18 +658,21 @@ int count = 0;
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    
-    
     if (scrollView.contentOffset.y == kContentOffSizeHeight) {
         
         [self beginRefresh1:scrollView];
     }
+    
+    if (!_isSaveStatus) {
+        [self saveData];
+    }
+    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSLog(@"offset = %@",NSStringFromCGPoint(scrollView.contentOffset));
-    NSLog(@"inset = %@", NSStringFromUIEdgeInsets(scrollView.contentInset));    
+//    NSLog(@"offset = %@",NSStringFromCGPoint(scrollView.contentOffset));
+//    NSLog(@"inset = %@", NSStringFromUIEdgeInsets(scrollView.contentInset));    
 }
 
 

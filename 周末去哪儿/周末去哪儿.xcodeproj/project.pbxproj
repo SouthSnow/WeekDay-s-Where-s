@@ -73,6 +73,7 @@
 		C283FB9B19B6C8E100DF7A27 /* ActivityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C283FB9919B6C8E100DF7A27 /* ActivityCell.m */; };
 		C283FB9C19B6C8E100DF7A27 /* ActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C283FB9A19B6C8E100DF7A27 /* ActivityCell.xib */; };
 		C286465419DD36F800D21EC3 /* SearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = C286465319DD36F800D21EC3 /* SearchController.m */; };
+		C2864A981B63D1EA000A9B71 /* libStaticLibraryDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C2864A971B63D1EA000A9B71 /* libStaticLibraryDemo.a */; };
 		C286F37619CC18DA00D60412 /* Story.m in Sources */ = {isa = PBXBuildFile; fileRef = C286F37519CC18DA00D60412 /* Story.m */; };
 		C286F37919CC324C00D60412 /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C286F37819CC324C00D60412 /* TestViewController.m */; };
 		C28A87AD19BAD482006327C5 /* ShowImageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C28A87AB19BAD482006327C5 /* ShowImageCell.m */; };
@@ -750,6 +751,8 @@
 		C283FB9A19B6C8E100DF7A27 /* ActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityCell.xib; sourceTree = "<group>"; };
 		C286465219DD36F800D21EC3 /* SearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchController.h; sourceTree = "<group>"; };
 		C286465319DD36F800D21EC3 /* SearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchController.m; sourceTree = "<group>"; };
+		C2864A971B63D1EA000A9B71 /* libStaticLibraryDemo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libStaticLibraryDemo.a; path = "周末去哪儿/libStaticLibraryDemo.a"; sourceTree = "<group>"; };
+		C2864A991B63D365000A9B71 /* StaticLibraryDemo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StaticLibraryDemo.h; sourceTree = "<group>"; };
 		C286F37419CC18DA00D60412 /* Story.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Story.h; sourceTree = "<group>"; };
 		C286F37519CC18DA00D60412 /* Story.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Story.m; sourceTree = "<group>"; };
 		C286F37719CC324C00D60412 /* TestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
@@ -1417,6 +1420,7 @@
 				C2EA7C8319C2B88F00C0C290 /* MobileCoreServices.framework in Frameworks */,
 				C2F158B519B5535A001129E7 /* CoreGraphics.framework in Frameworks */,
 				C2EA7C8119C2B86900C0C290 /* CFNetwork.framework in Frameworks */,
+				C2864A981B63D1EA000A9B71 /* libStaticLibraryDemo.a in Frameworks */,
 				83D738A71A527E1B0099FFA3 /* libTCWeiboSDK.a in Frameworks */,
 				83D738B21A527F450099FFA3 /* Parse.framework in Frameworks */,
 				83D738991A527E1B0099FFA3 /* QZoneConnection.framework in Frameworks */,
@@ -1901,6 +1905,8 @@
 		C2F158B119B5535A001129E7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C2864A991B63D365000A9B71 /* StaticLibraryDemo.h */,
+				C2864A971B63D1EA000A9B71 /* libStaticLibraryDemo.a */,
 				C2C8FCAF19C960F2005AFFC4 /* CoreData.framework */,
 				C2EA7C8419C2B89B00C0C290 /* StoreKit.framework */,
 				C2EA7C8219C2B88F00C0C290 /* MobileCoreServices.framework */,
@@ -3386,6 +3392,7 @@
 					"$(PROJECT_DIR)/周末去哪儿/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/周末去哪儿/ShareSDK/Extend/TencentWeiboSDK",
 					"$(PROJECT_DIR)/周末去哪儿/ShareSDK/Extend/WeChatSDK",
+					"$(PROJECT_DIR)/周末去哪儿",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
@@ -3433,6 +3440,7 @@
 					"$(PROJECT_DIR)/周末去哪儿/ShareSDK/Extend/SinaWeiboSDK",
 					"$(PROJECT_DIR)/周末去哪儿/ShareSDK/Extend/TencentWeiboSDK",
 					"$(PROJECT_DIR)/周末去哪儿/ShareSDK/Extend/WeChatSDK",
+					"$(PROJECT_DIR)/周末去哪儿",
 				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
