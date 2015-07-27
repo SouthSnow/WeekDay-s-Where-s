@@ -20,7 +20,7 @@
 #import "PoiViewController.h"
 #import "MapViewController.h"
 #import "TelCell.h"
-
+#import "TestCell.h"
 
 
 @interface DetailViewController ()<UITableViewDataSource,UITableViewDelegate,NSURLConnectionDataDelegate,UIScrollViewDelegate>
@@ -314,10 +314,11 @@
     else if(indexPath.section == 2)
     {
         DetailCell2 *cell = [tableView dequeueReusableCellWithIdentifier:@"cell2"];
+//        cell.autoresizingMask = UIViewAutoresizingFlexibleHeight;
         NSString *string = [NSString stringWithFormat:@"%@",_model.introdution];//,_model.information_show
 //        string = [string stringByReplacingOccurrencesOfString:@"<br/><\br>" withString:@""];
-//        [cell setHeight:string];
-        cell.detailString = string;
+        [cell setHeight:string];//@"回来卡上的房间里是京东方可接受的覅苏放假了可接受的覅U树人据了解撒地方来看角色日萨芬金额为是否可骄傲是浪费回来卡上的房间里是京东方可接受的覅苏放假了可接受的覅U树人据了解撒地方来看角色日萨芬金额为是否可骄傲是浪费回来卡上的房间里是京东方可接受的覅苏放假了可接受的覅U树人据了解撒地方来看角色日萨芬金额为是否可骄傲是浪费回来卡上的房间里是京东方可接受的覅苏放假了可接受的覅U树人据了解撒地方来看角色日萨芬金额为是否可骄傲是浪费回来卡上的房间里是京东方可接受的覅苏放假了可接受的覅U树人据了解撒地方来看角色日萨芬金额为是否可骄傲是浪费回来卡上的房间里是京东方可接受的覅苏放假了可接受的覅U树人据了解撒地方来看角色日萨芬金额为是否可骄傲是浪费"];
+//        cell.detailString = string;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
@@ -402,6 +403,7 @@
 //        
 //        NSString *string = [NSString stringWithFormat:@"%@",_model.introdution];//,_model.information_show
 //        cell.detailString = [string stringByReplacingOccurrencesOfString:@"<br/><\br>" withString:@""];
+//        [cell setHeight:string];
 //        return cell.cellHeight;
 ////
 //    }

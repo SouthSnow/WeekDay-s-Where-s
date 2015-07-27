@@ -34,7 +34,7 @@
     }
     else
     {
-        [string sizeWithFont:bodyLabel.font constrainedToSize:CGSizeMake(300, 2999)];
+       height = [string sizeWithFont:bodyLabel.font constrainedToSize:CGSizeMake(300, 2999)].height;
         
     }
     bodyLabel.frame = CGRectMake(bodyLabel.frame.origin.x, bodyLabel.frame.origin.y, bodyLabel.frame.size.width, height);

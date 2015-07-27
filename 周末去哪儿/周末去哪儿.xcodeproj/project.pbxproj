@@ -140,9 +140,6 @@
 		C2CF126719D31E3C00543EFD /* DetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C2CF126519D31E3C00543EFD /* DetCell.m */; };
 		C2CF126819D31E3C00543EFD /* DetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C2CF126619D31E3C00543EFD /* DetCell.xib */; };
 		C2DD11BC19B5DF900046A65A /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C2DD11BB19B5DF900046A65A /* CommentViewController.m */; };
-		C2EA7C7B19C2B80200C0C290 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2EA7C7819C2B80200C0C290 /* Bolts.framework */; };
-		C2EA7C7C19C2B80200C0C290 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2EA7C7919C2B80200C0C290 /* Parse.framework */; };
-		C2EA7C7D19C2B80200C0C290 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2EA7C7A19C2B80200C0C290 /* ParseFacebookUtils.framework */; };
 		C2EA7C7F19C2B86200C0C290 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2EA7C7E19C2B86200C0C290 /* AudioToolbox.framework */; };
 		C2EA7C8119C2B86900C0C290 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2EA7C8019C2B86900C0C290 /* CFNetwork.framework */; };
 		C2EA7C8319C2B88F00C0C290 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2EA7C8219C2B88F00C0C290 /* MobileCoreServices.framework */; };
@@ -1440,16 +1437,13 @@
 				C2ABD1AD19C1BA0900F3537D /* AddressBook.framework in Frameworks */,
 				83D7389D1A527E1B0099FFA3 /* TwitterConnection.framework in Frameworks */,
 				83D738AB1A527E1C0099FFA3 /* ShareSDKFlatShareViewUI.framework in Frameworks */,
-				C2EA7C7D19C2B80200C0C290 /* ParseFacebookUtils.framework in Frameworks */,
 				C2ABD1A919C1B9D900F3537D /* CoreText.framework in Frameworks */,
 				C2ABD1A719C1B9CF00F3537D /* MediaPlayer.framework in Frameworks */,
 				83D738A91A527E1C0099FFA3 /* ShareSDK.framework in Frameworks */,
 				C2ABD1A519C1B9B700F3537D /* CoreMotion.framework in Frameworks */,
 				C2ABD1A319C1B9AA00F3537D /* libsqlite3.dylib in Frameworks */,
 				83D738971A527E1B0099FFA3 /* MailConnection.framework in Frameworks */,
-				C2EA7C7B19C2B80200C0C290 /* Bolts.framework in Frameworks */,
 				C2ABD1A119C1B99700F3537D /* Security.framework in Frameworks */,
-				C2EA7C7C19C2B80200C0C290 /* Parse.framework in Frameworks */,
 				83D7389E1A527E1B0099FFA3 /* WeChatConnection.framework in Frameworks */,
 				C2ABD19F19C1B98C00F3537D /* libz.1.2.5.dylib in Frameworks */,
 				83D738981A527E1B0099FFA3 /* QQConnection.framework in Frameworks */,
@@ -2610,7 +2604,7 @@
 		C2F158A719B5535A001129E7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = pfl;
 				TargetAttributes = {
 					C2F158AE19B5535A001129E7 = {
@@ -3367,7 +3361,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
@@ -3401,7 +3394,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos8.1;
+				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "周末去哪儿/周末去哪儿-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -3415,7 +3408,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
@@ -3449,7 +3441,7 @@
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos8.1;
+				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OBJC_BRIDGING_HEADER = "周末去哪儿/周末去哪儿-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
