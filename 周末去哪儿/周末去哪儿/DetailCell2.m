@@ -46,34 +46,41 @@
 - (void)setDetailString:(NSString *)detailString
 {
     _detailString = detailString;
+////    
+//    bodyLabel.text = detailString;
+//    bodyLabel.font = [UIFont systemFontOfSize:14];
+//    bodyLabel.numberOfLines = 0;
+//    bodyLabel.lineBreakMode = NSLineBreakByWordWrapping;
+//    bodyLabel.textColor = [UIColor colorWithRed:130.0/255.0 green:130.0/255.0 blue:130.0/255.0 alpha:1.0];
 //    
-    bodyLabel.text = self.detailString;
-    bodyLabel.font = [UIFont systemFontOfSize:14];
-    bodyLabel.numberOfLines = 0;
-    bodyLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    bodyLabel.textColor = [UIColor colorWithRed:130.0/255.0 green:130.0/255.0 blue:130.0/255.0 alpha:1.0];
-    
-    CGFloat height;
-    
-    CGFloat verSion = [[UIDevice currentDevice].systemVersion floatValue];
-    if (verSion >= 7.0)
-    {
-        height = [bodyLabel.text boundingRectWithSize:CGSizeMake(300, 2999) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{NSFontAttributeName: bodyLabel.font} context:nil].size.height;
-    }
-    else
-    {
-        [bodyLabel.text sizeWithFont:bodyLabel.font constrainedToSize:CGSizeMake(300, 2999)];
-        
-    }
-    
-    bodyLabel.frame = CGRectMake(bodyLabel.frame.origin.x, bodyLabel.frame.origin.y, bodyLabel.frame.size.width, height);
-    
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width,bodyLabel.frame.size.height + 20);
-    
-
-    NSLog(@"%@",NSStringFromSelector(_cmd));
+//    CGFloat height = 0;
+//    
+//    CGFloat verSion = [[UIDevice currentDevice].systemVersion floatValue];
+//    if (verSion >= 7.0)
+//    {
+//        height = [bodyLabel.text boundingRectWithSize:CGSizeMake(300, 2999) options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName: bodyLabel.font} context:nil].size.height;
+//    }
+//    else
+//    {
+//       height = [bodyLabel.text sizeWithFont:bodyLabel.font constrainedToSize:CGSizeMake(300, 2999)].height;
+//        
+//    }
+//    
+//    CGRect bodyFrame = bodyLabel.frame;
+//    bodyFrame.size.height = CGRectGetMaxY(bodyFrame) + height;
+//    bodyLabel.frame = bodyFrame;
+////    bodyLabel.backgroundColor = [UIColor redColor];
+//
+//
+//    CGRect rect = self.frame;
+//    rect.size.height = CGRectGetMaxY(bodyLabel.frame) + 10;
+//    self.frame = rect;
+//
+//    NSLog(@"height = %f",height);
     
 }
+
+
 
 - (void)layoutSubviews
 {
@@ -82,7 +89,7 @@
     
     bodyLabel.text = self.detailString;
     bodyLabel.font = [UIFont systemFontOfSize:14];
-    bodyLabel.numberOfLines = 0;
+    bodyLabel.numberOfLines = 12;
     bodyLabel.lineBreakMode = NSLineBreakByWordWrapping;
     bodyLabel.textColor = [UIColor colorWithRed:130.0/255.0 green:130.0/255.0 blue:130.0/255.0 alpha:1.0];
     
@@ -93,15 +100,22 @@
     }
     else
     {
-        [bodyLabel.text sizeWithFont:bodyLabel.font constrainedToSize:CGSizeMake(300, 2999)];
+       height = [bodyLabel.text sizeWithFont:bodyLabel.font constrainedToSize:CGSizeMake(300, 2999)].height;
         
     }
     
+    CGRect bodyFrame = bodyLabel.frame;
+    bodyFrame.size.height = CGRectGetMaxY(bodyFrame) + height;
+    bodyLabel.frame = bodyFrame;
+    bodyLabel.backgroundColor = [UIColor redColor];
+
     
-    bodyLabel.frame = CGRectMake(bodyLabel.frame.origin.x, bodyLabel.frame.origin.y, bodyLabel.frame.size.width, height);
+    CGRect rect = self.frame;
+    rect.size.height = CGRectGetMaxY(bodyLabel.frame) + 10;
+    self.frame = rect;
     
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width,bodyLabel.frame.size.height + 20);
-//    NSLog(@"%@",NSStringFromSelector(_cmd));
+    NSLog(@"height = %f",height);
+
     
     
 //    CGFloat height;
@@ -129,45 +143,39 @@
     _cellHeight = height+20;
 }
 
-
+#if 0
 
 - (void)awakeFromNib
 {
     // Initialization code
     
     CGFloat height;
-    label = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 300, 44)];
-    label.text = self.detailString;
-    label.font = [UIFont systemFontOfSize:14];
-    label.numberOfLines = 0;
-    label.lineBreakMode = NSLineBreakByWordWrapping;
-//    [self addSubview:label];
-////
-    CGFloat verSion = [[UIDevice currentDevice].systemVersion floatValue];
-    if (verSion >= 7.0)
-    {
-        height = [label.text boundingRectWithSize:CGSizeMake(300, 2999) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{NSFontAttributeName: label.font} context:nil].size.height;
-    }
-    else
-    {
-        [label.text sizeWithFont:label.font constrainedToSize:CGSizeMake(300, 2999)];
-        
-    }
-    
-    label.frame = CGRectMake(label.frame.origin.x, label.frame.origin.y, label.frame.size.width, height);
-    
-    self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width,label.frame.size.height + 20);
-
-    
-    
-    NSLog(@"%@",NSStringFromCGSize(label.frame.size));
+    bodyLabel.frame = CGRectMake(10, 10, 300, 44);
+    bodyLabel.text = self.detailString;
+    bodyLabel.font = [UIFont systemFontOfSize:14];
+    bodyLabel.numberOfLines = 0;
+    bodyLabel.lineBreakMode = NSLineBreakByWordWrapping;
+//    [self.contentView addSubview:bodyLabel];
+//////
+//    CGFloat verSion = [[UIDevice currentDevice].systemVersion floatValue];
+//    if (verSion >= 7.0)
+//    {
+//        height = [bodyLabel.text boundingRectWithSize:CGSizeMake(300, 2999) options:(NSStringDrawingUsesLineFragmentOrigin) attributes:@{NSFontAttributeName: bodyLabel.font} context:nil].size.height;
+//    }
+//    else
+//    {
+//       height =  [bodyLabel.text sizeWithFont:bodyLabel.font constrainedToSize:CGSizeMake(300, 2999)].height;
+//    }
+//    
+//    
+//
+//    CGRect rect = self.frame;
+//    rect.size.height = CGRectGetMaxY(bodyLabel.frame) + 10;
+//    self.frame = rect;
+//    
+//    NSLog(@"%@",NSStringFromCGSize(bodyLabel.frame.size));
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated
-{
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
+#endif
 
 @end
