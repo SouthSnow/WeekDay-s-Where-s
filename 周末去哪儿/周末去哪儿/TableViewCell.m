@@ -118,7 +118,6 @@
      if ([dele.loginStatus isEqualToString:@"success"])
      {
         
-        
         if (model.isFollow.intValue == 1) {
             [_favBtn setImage:[UIImage imageNamed:@"like_inverse"] forState:UIControlStateNormal];
             NSLog(@"=======%d",model.isFollow.intValue);

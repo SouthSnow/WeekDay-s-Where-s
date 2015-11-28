@@ -22,6 +22,7 @@
 #import "Story.h"
 #import "SegmentViewController.h"
 #import "StaticLibraryDemo.h"
+#import <libkern/OSAtomic.h>
 
 #define kContentOffSizeHeight scrollView.contentSize.height - 474
 
@@ -58,8 +59,9 @@
     dispatch_queue_t _globalQueue;
     dispatch_group_t dispatchGroup;
     NSCache *imageCache;
-    
-    
+    NSOperationQueue *operationQueue;
+    NSMutableDictionary *operationStack;
+    OSSpinLock _lock;
 
 }
 @property (nonatomic, strong)CLLocationManager *manager;
@@ -126,8 +128,12 @@
 {
     [super viewDidLoad];
   
+    _lock = OS_SPINLOCK_INIT;
+    operationQueue = [[NSOperationQueue alloc]init];
+    operationStack = [NSMutableDictionary dictionary];
+    
     imageCache = [[NSCache alloc]init];
-    imageCache.countLimit = 30;
+//    imageCache.countLimit = 30;
     
     [StaticLibraryDemo testPrint];
 
@@ -403,11 +409,17 @@
 
 - (void)saveData
 {
+    
     dispatch_group_async(dispatchGroup, _globalQueue, ^{
-        @synchronized(self){
-            _isSaveStatus = YES;
-            [self saveData:_dataArray];
-        }
+//        @synchronized(self){
+//            _isSaveStatus = YES;
+//            [self saveData:_dataArray];
+//        }
+        
+        OSSpinLockLock(&_lock);
+        _isSaveStatus = YES;
+        [self saveData:_dataArray];
+        OSSpinLockUnlock(&_lock);
         
     });
     dispatch_group_notify(dispatchGroup, _mainQueue, ^{
@@ -577,6 +589,7 @@ int count = 0;
     [cell.favBtn addTarget:self action:@selector(btnClick:) forControlEvents:(UIControlEventTouchUpInside)];
     cell.model = model;
     
+#if 0
     __block UIImage *thumbImage = [imageCache objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
     if (thumbImage) {
         cell.imgView.image = thumbImage;
@@ -600,8 +613,64 @@ int count = 0;
         
     }
     
+#endif
+    
+    
+#if 1
+    
+    __block UIImage *thumbImage;
+    thumbImage = [imageCache objectForKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+    if (thumbImage) {
+        cell.imgView.image = thumbImage;
+    }
+    else {
+        NSBlockOperation *operation = [operationStack objectForKey:[NSString stringWithFormat:@"%d",(int)indexPath.row]];
+        if (!operation) {
+            operation = [[NSBlockOperation alloc]init];
+            [operationStack setObject:operation forKey:[NSString stringWithFormat:@"%d",(int)indexPath.row]];
+        }
+        
+        __weak typeof(operation) weakOp = operation;
+        [operation addExecutionBlock:^{
+            UIImage *image = [UIImage imageWithData:[model isKindOfClass:[StoryModel class]]?[NSData dataWithContentsOfURL:[NSURL URLWithString:model.face]]:model.facePic];
+            float scale = [UIScreen mainScreen].scale;
+            UIGraphicsBeginImageContextWithOptions(CGSizeMake(cell.bounds.size.width, 230), YES, scale);
+            [image drawInRect:CGRectMake(0, 0, self.view.bounds.size.width, 230)];
+            thumbImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                if (![weakOp isCancelled]) {
+                    cell.imgView.image = thumbImage;
+                    [imageCache setObject:thumbImage forKey:[NSString stringWithFormat:@"%d",indexPath.row]];
+                }
+            }];
+        }];
+        [operationQueue addOperation:operation];
+    }
+    
+
+
+#endif
+//    cell.imageView.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:model.face]]];
+//    [cell.imageView setImageWithURL:[NSURL URLWithString:model.face] placeholderImage:nil];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didEndDisplayingCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSBlockOperation *operation = [operationStack objectForKey:[NSString stringWithFormat:@"%d",(int)indexPath.row]];
+    if (operation) {
+        if (!operation.cancelled) {
+            [operation cancel];
+            [operationStack removeObjectForKey:[NSString stringWithFormat:@"%d",(int)indexPath.row]];
+        }
+    }
+
+    
+//    TableViewCell *cell1 = cell;
+//    cell1.imgView.image = nil;
+    
 }
 
 - (void)btnClick:(UIButton*)btn
