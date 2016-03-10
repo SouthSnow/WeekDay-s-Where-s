@@ -291,6 +291,8 @@
     
     [manger GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject)
     {
+        NSLog(@"responseObject:%@",[responseObject class]);
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [self resetFrame];
         });
