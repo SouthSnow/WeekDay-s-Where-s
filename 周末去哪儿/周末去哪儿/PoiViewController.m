@@ -104,6 +104,8 @@
     dele.customView.hidden = YES;
     self.navigationController.navigationBar.translucent = YES;
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"2"] forBarMetrics:(UIBarMetricsDefault)];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+
     self.view.backgroundColor = [UIColor whiteColor];
     [self addTableView];
     [self sendRequest];

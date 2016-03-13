@@ -218,18 +218,18 @@
             
             [_dataArray addObject:model];
         
-        NSString *title = dictionary[@"result"][@"poi_all"][0][@"title"];
+        NSString *title = dictionary[@"result"][@"poi_all"][0][@"title"]?:@"";
         [_topStoryArray addObject:title];
         NSLog(@"0000000%@",_topStoryArray[0]);
-        NSString *cost = dictionary[@"result"][@"poi_all"][0][@"cost"];
+        NSString *cost = dictionary[@"result"][@"poi_all"][0][@"cost"]?:@"";
         [_topStoryArray addObject:cost];
-        NSString *address = dictionary[@"result"][@"poi_all"][0][@"address"];
+        NSString *address = dictionary[@"result"][@"poi_all"][0][@"address"]?:@"";
         [_topStoryArray addObject:address];
-        NSString *openTime= dictionary[@"result"][@"poi_all"][0][@"open_time"];
+        NSString *openTime= dictionary[@"result"][@"poi_all"][0][@"open_time"]?:@"";
         [_topStoryArray addObject:openTime];
-        NSString *lat = dictionary[@"result"][@"poi_all"][0][@"lat"];
+        NSString *lat = dictionary[@"result"][@"poi_all"][0][@"lat"]?:@"";
         [_topStoryArray addObject:lat];
-        NSString *lon = dictionary[@"result"][@"poi_all"][0][@"lon"];
+        NSString *lon = dictionary[@"result"][@"poi_all"][0][@"lon"]?:@"";
         [_topStoryArray addObject:lon];
         
         
