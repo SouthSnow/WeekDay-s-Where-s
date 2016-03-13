@@ -1,0 +1,39 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "815F8B3B2C01362459C54183578D9067C125AACA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "b3ea32e5-604c-4fca-b5db-6ae888a3e4b3++9256" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "E9D83B2FCC4036AC11673406F0D9838B90FA7398" : 0,
+    "815F8B3B2C01362459C54183578D9067C125AACA" : 0,
+    "b3ea32e5-604c-4fca-b5db-6ae888a3e4b3++9256" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "570167E8-D5E3-4C75-A2BE-B173E6CF77A6",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "E9D83B2FCC4036AC11673406F0D9838B90FA7398" : "",
+    "815F8B3B2C01362459C54183578D9067C125AACA" : "WeekDay-s-Where-s",
+    "b3ea32e5-604c-4fca-b5db-6ae888a3e4b3++9256" : "WeekDay-s-Where-s%E5%91%A8%E6%9C%AB%E5%8E%BB%E5%93%AA%E5%84%BF\/%E5%91%A8%E6%9C%AB%E5%8E%BB%E5%93%AA%E5%84%BF\/SDWebImage"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "周末去哪儿",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "周末去哪儿\/周末去哪儿.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/SouthSnow\/WeekDay-s-Where-s.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "815F8B3B2C01362459C54183578D9067C125AACA"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:SouthSonw\/SouMiPay.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "E9D83B2FCC4036AC11673406F0D9838B90FA7398"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/yangj.5166.info\/1000phone",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "b3ea32e5-604c-4fca-b5db-6ae888a3e4b3++9256"
+    }
+  ]
+}
