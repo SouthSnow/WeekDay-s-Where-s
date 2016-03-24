@@ -581,6 +581,7 @@
 {
     
     UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 175 + 40)];
+    view.backgroundColor = [UIColor redColor];
     imgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, view.frame.origin.y, view.frame.size.width, 175)];
     [imgView setImageWithURL:[NSURL URLWithString:_model.picShowArray[0]] placeholderImage:nil];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -660,6 +661,7 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
+    return;
     NSLog(@"chang=======%@",change);
     
     if ([keyPath  isEqual: @"contentOffset"]) {
@@ -738,43 +740,43 @@
     
     contentView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height - 40, [UIScreen mainScreen].bounds.size.width, 40);
    
-//    if (scrollView.contentOffset.y < 0)
-//    {
-//
-//        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"details_top_white_back_inverse"] style:(UIBarButtonItemStylePlain) target:self action:@selector(back)];
-//        self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
-//        // 这样设置颜色会是蓝色
-//        //self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
-//        
-//        // 拉伸动画
-//        imgView.frame=CGRectMake(0+scrollView.contentOffset.y/2, 0+scrollView.contentOffset.y, 320-scrollView.contentOffset.y, 175-scrollView.contentOffset.y);
-//       
-//        self.navigationController.navigationBar.layer.borderColor =  [[UIColor colorWithRed:226/255.0
-//                                                                                      green:230/255.0 blue:232/255.0 alpha:1] CGColor];
-//        
-//        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"2"] forBarMetrics:UIBarMetricsDefault];
-//        self.title = @"";
-//        NSLog(@"====1==%f",scrollView.contentOffset.y);
-//        
-//    }
-//    
-//    else
-//    {
-//       
-//        self.navigationController.navigationBar.translucent = YES;
-//        [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:(UIBarMetricsDefault)];
-//       
-//        //更改透明度
-//        self.navigationController.navigationBar.layer.opacity = abs(scrollView.contentOffset.y)/64.0;
-//        //[self.navigationController.navigationBar setBarTintColor:[UIColor colorWithHue:0.0 saturation:0.0 brightness:scrollView.contentOffset.y / 64.0 alpha:0.5]];
-//
-//        contentView.frame = CGRectMake(0, self.view.frame.size.height - 40, self.view.frame.size.width, 40);
-//        
-//        self.title = _model.position;
-//        
-//        self.navigationItem.leftBarButtonItem.tintColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"details_top_blue_back_normal"]];
-//        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"details_top_blue_back_normal"] style:(UIBarButtonItemStylePlain) target:self action:@selector(back)];
-//    }
+    if (scrollView.contentOffset.y < 0)
+    {
+
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"details_top_white_back_inverse"] style:(UIBarButtonItemStylePlain) target:self action:@selector(back)];
+        self.navigationItem.leftBarButtonItem.tintColor = [UIColor whiteColor];
+        // 这样设置颜色会是蓝色
+        //self.navigationController.navigationBar.barTintColor = [UIColor whiteColor];
+        
+        // 拉伸动画
+        imgView.frame=CGRectMake(0+scrollView.contentOffset.y/2, 0+scrollView.contentOffset.y, 320-scrollView.contentOffset.y, 175-scrollView.contentOffset.y);
+       
+        self.navigationController.navigationBar.layer.borderColor =  [[UIColor colorWithRed:226/255.0
+                                                                                      green:230/255.0 blue:232/255.0 alpha:1] CGColor];
+        
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"2"] forBarMetrics:UIBarMetricsDefault];
+        self.title = @"";
+        NSLog(@"====1==%f",scrollView.contentOffset.y);
+        
+    }
+    
+    else
+    {
+       
+        self.navigationController.navigationBar.translucent = YES;
+        [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:(UIBarMetricsDefault)];
+       
+        //更改透明度
+        self.navigationController.navigationBar.layer.opacity = abs(scrollView.contentOffset.y)/64.0;
+        //[self.navigationController.navigationBar setBarTintColor:[UIColor colorWithHue:0.0 saturation:0.0 brightness:scrollView.contentOffset.y / 64.0 alpha:0.5]];
+
+        contentView.frame = CGRectMake(0, self.view.frame.size.height - 40, self.view.frame.size.width, 40);
+        
+        self.title = _model.position;
+        
+        self.navigationItem.leftBarButtonItem.tintColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"details_top_blue_back_normal"]];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"details_top_blue_back_normal"] style:(UIBarButtonItemStylePlain) target:self action:@selector(back)];
+    }
     
 }
 #endif

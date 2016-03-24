@@ -210,7 +210,7 @@
             model.cost = dic[@"cost"];
             model.address = dic[@"address"];
             model.showTime = dic[@"time_txt"];
-            [model.picShowArray addObject: dic[@"pic_show"]];
+            [model.picShowArray addObject: dic[@"pic_show"]?:@""];
             model.introdution = dic[@"intro"];
             model.start_time_show = dic[@"start_time_show"];
             model.pic_show = dic[@"pic_show"];

@@ -46,6 +46,10 @@
     bodyLabel.frame = CGRectMake(bodyLabel.frame.origin.x, bodyLabel.frame.origin.y, bodyLabel.frame.size.width, height);
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width,height + 20);
  
+    
+    
+    
+    
     self.cellHeight = CGRectGetMaxY(self.frame);
 }
 

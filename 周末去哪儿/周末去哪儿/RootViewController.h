@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "ViewController.h"
 #import "MJRefresh.h"
+#import "Store.h"
 
 @interface RootViewController : UIViewController
-
+@property (nonatomic, readwrite, strong) Store *store;
 
 @end

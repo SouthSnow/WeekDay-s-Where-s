@@ -24,6 +24,8 @@
 #import "StaticLibraryDemo.h"
 #import <libkern/OSAtomic.h>
 
+#import "ImportOperation.h"
+
 #define kContentOffSizeHeight scrollView.contentSize.height - 474
 
 //,CLLocationManagerDelegate
@@ -73,6 +75,11 @@
 @property (nonatomic,strong) SearchResultController *search;
 @property (nonatomic,strong) LeftViewController *leftVc;
 @property (nonatomic, assign) NSUInteger saveCount;
+
+@property (nonatomic, strong) NSOperationQueue *importOperationQueue;
+
+@property (nonatomic, strong) UILabel *progressLabel;
+
 @end
 
 @implementation RootViewController
@@ -131,7 +138,7 @@
     _lock = OS_SPINLOCK_INIT;
     operationQueue = [[NSOperationQueue alloc]init];
     operationStack = [NSMutableDictionary dictionary];
-    
+    self.importOperationQueue = [[NSOperationQueue alloc] init];
     imageCache = [[NSCache alloc]init];
 //    imageCache.countLimit = 30;
     
@@ -412,6 +419,21 @@
 - (void)saveData
 {
     
+    
+    ImportOperation *operation = [[ImportOperation alloc] initWithStore:self.store Storys:_dataArray];
+    
+    
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [operation setProgressCallback:^(float progress) {
+            self.progressLabel.text = [NSString stringWithFormat:@"%0.2f%%",progress*100];
+            self.progressLabel.textColor = [UIColor redColor];
+        }];
+ 
+    }];
+    [self.importOperationQueue addOperation:operation];
+    
+    return;
+    
     dispatch_group_async(dispatchGroup, _globalQueue, ^{
 //        @synchronized(self){
 //            _isSaveStatus = YES;
@@ -431,6 +453,7 @@
 
 - (void)saveData:(NSArray*)arr
 {
+    
     for (int i = 0; i < arr.count; i++)
     {
         BOOL hasContain = NO;
@@ -872,12 +895,17 @@ int count = 0;
     [_tableView registerNib:[UINib nibWithNibName:@"TableViewCell" bundle:nil] forCellReuseIdentifier:@"cell"];
    
     // 天气
-    WeatherView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
+    WeatherView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 60)];
     WeatherView.backgroundColor = [UIColor whiteColor];
     addressLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 200, 30)];
     weatherLabel = [[UILabel alloc]initWithFrame:CGRectMake(220, 0, 80, 30)];
+    self.progressLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, [UIScreen mainScreen].bounds.size.width, 30)];
+    self.progressLabel.textAlignment = NSTextAlignmentCenter;
+    self.progressLabel.font = [UIFont systemFontOfSize:18];
+    
     [WeatherView addSubview:addressLabel];
     [WeatherView addSubview:weatherLabel];
+    [WeatherView addSubview:self.progressLabel];
 
     [self.view addSubview:WeatherView];
 }

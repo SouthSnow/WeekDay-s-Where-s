@@ -22,6 +22,8 @@
 #import "FiveController.h"
 #import "CollectController.h"
 #import "TrendsViewController.h"
+#import "Store.h"
+
 
 @interface AppDelegate()<CLLocationManagerDelegate>
 {
@@ -30,8 +32,9 @@
     UILabel *addressLabel;
     UILabel *weatherLabel;
 }
-@property (nonatomic, strong)CLLocationManager *manager;
+@property (nonatomic, strong) CLLocationManager *manager;
 @property (nonatomic, strong) UITabBarController *tabBarController;
+@property (nonatomic, strong) Store *store;
 @end
 
 @implementation AppDelegate
@@ -53,6 +56,8 @@
     _selectedArray = [NSMutableArray array];
     _trendsArray = [NSMutableArray array];
 
+    self.store = [[Store alloc] init];
+    
     self.window.backgroundColor = [UIColor whiteColor];
     
    
@@ -143,6 +148,7 @@
     self.count = 0;
     
     RootViewController *oneVc = [[RootViewController alloc]init];
+    oneVc.store = self.store;
     TwoViewController *secondVc = [[TwoViewController alloc]init];
     CollectController *thirdVc = [[CollectController alloc]init];
     TrendsViewController *forthVc = [[TrendsViewController alloc]init];
